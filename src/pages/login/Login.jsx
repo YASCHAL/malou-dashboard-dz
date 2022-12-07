@@ -10,7 +10,7 @@ const Login = () => {
         username : undefined,
         password : undefined,
     })
-    const {loading, error, dispatch} = useContext(AuthContext)
+    const {loading, error, Dispatch} = useContext(AuthContext)
 
     const navigate = useNavigate()
 
@@ -19,18 +19,18 @@ const Login = () => {
     }
     const handleClick = async e =>{
         e.preventDefault()
-        dispatch({type : "LOGIN_START"})
+        Dispatch({type : "LOGIN_START"})
         try{
            const res = await axiosInstance.post('/auth/login',credentials)
            if(res.data.isAdmin){
-            dispatch({type:"LOGIN_SUCCESS", payload : res.data.details})
+            Dispatch({type:"LOGIN_SUCCESS", payload : res.data.details})
             navigate('/')
            }else{
-            dispatch({type:"LOGIN_FAILURE", payload : {message : "You are not allowed!"} })
+            Dispatch({type:"LOGIN_FAILURE", payload : {message : "You are not allowed!"} })
            }
            
         }catch(err){
-            dispatch({type:"LOGIN_FAILURE", payload : err.response.data})
+            Dispatch({type:"LOGIN_FAILURE", payload : err.response.data})
         }
     }
 

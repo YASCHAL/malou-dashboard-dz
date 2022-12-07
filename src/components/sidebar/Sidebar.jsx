@@ -15,9 +15,17 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {Link} from 'react-router-dom'
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const {dispatch} = useContext(DarkModeContext)
+  const {Dispatch} = useContext(AuthContext)
+  const navigate = useNavigate();
+  const logout = () => {
+    Dispatch({ type: "LOGOUT" });
+    navigate("/login");
+  };
   return (
     <div className='sidebar'>
       <div className="top">
@@ -86,8 +94,8 @@ const Sidebar = () => {
                 <AccountBoxIcon className="icon"/>
                 <span>Profile</span>
             </li>
-            <li>
-                < LogoutIcon className="icon"/>
+            <li onClick={logout}>
+                < LogoutIcon className="icon" />
                 <span>Logout</span>
             </li>
         </ul>
